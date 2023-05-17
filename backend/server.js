@@ -1,29 +1,31 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors"); // Import the cors package
 const workoutRoutes = require("./routes/workouts");
 
 // express app
 const app = express();
 
-//middleware
+// Middleware
 app.use(express.json());
+app.use(cors()); // Enable CORS
 
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
-// routes
+// Routes
 app.use("/api/workouts", workoutRoutes);
 
-// connect to db
+// Connect to the database
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    // listen for requests
+    // Listen for requests
     app.listen(process.env.PORT, () => {
-      console.log("listening on port", process.env.PORT);
+      console.log("Listening on port", process.env.PORT);
     });
   })
   .catch((error) => console.log(error));
