@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // components
 import WorkoutDetails from "../components/WorkoutDetails";
-
+import WorkoutForm from "../components/WorkoutForm";
 const Home = () => {
   const [workouts, setWorkouts] = useState([]);
 
@@ -24,10 +24,13 @@ const Home = () => {
 
   return (
     <div className="home">
+      {" "}
+      <WorkoutForm />
       <div className="workouts">
+        
         {workouts.map((workout) => (
           <p key={workout._id}>
-            <WorkoutDetails key={workout._id} workout={workout} />
+          <div className="workoutDetails">  <WorkoutDetails key={workout._id} workout={workout} /></div>
           </p>
         ))}
       </div>
